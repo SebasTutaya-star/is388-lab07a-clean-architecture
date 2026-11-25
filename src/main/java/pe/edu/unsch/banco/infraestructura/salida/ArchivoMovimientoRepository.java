@@ -1,6 +1,6 @@
-package pe.edu.unsch.banco.infraestructura;
+package pe.edu.unsch.banco.infraestructura.salida;
 
-import pe.edu.unsch.banco.aplicacion.MovimientoRepository;
+import pe.edu.unsch.banco.aplicacion.puertos.MovimientoRepository;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -9,6 +9,10 @@ import java.time.format.DateTimeFormatter;
 public class ArchivoMovimientoRepository implements MovimientoRepository {
     private final String rutaArchivo;
     private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+    public ArchivoMovimientoRepository() {
+        this("movimientos.txt");
+    }
 
     public ArchivoMovimientoRepository(String rutaArchivo) {
         this.rutaArchivo = rutaArchivo;

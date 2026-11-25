@@ -1,9 +1,11 @@
 package pe.edu.unsch.banco.aplicacion;
 
+import pe.edu.unsch.banco.aplicacion.puertos.CuentaUseCase;
+import pe.edu.unsch.banco.aplicacion.puertos.MovimientoRepository;
 import pe.edu.unsch.banco.dominio.CuentaBancaria;
 import java.math.BigDecimal;
 
-public class CuentaService {
+public class CuentaService implements CuentaUseCase {
     private CuentaBancaria cuentaActiva;
     private final MovimientoRepository movimientoRepository;
 
@@ -11,6 +13,7 @@ public class CuentaService {
         this.movimientoRepository = movimientoRepository;
     }
 
+    @Override
     public void registrarCuenta(String titular, BigDecimal saldoInicial) {
         if (this.cuentaActiva != null) {
             throw new IllegalStateException("Ya existe una cuenta activa (" + cuentaActiva.getTitular() + "). No se puede reemplazar.");
@@ -22,6 +25,7 @@ public class CuentaService {
         );
     }
 
+    @Override
     public void depositar(BigDecimal monto) {
         validarCuentaActiva();
         cuentaActiva.depositar(monto);
@@ -32,6 +36,7 @@ public class CuentaService {
         );
     }
 
+    @Override
     public void retirar(BigDecimal monto) {
         validarCuentaActiva();
         cuentaActiva.retirar(monto);
@@ -42,9 +47,16 @@ public class CuentaService {
         );
     }
 
-    public CuentaBancaria consultarCuenta() {
+    @Override
+    public BigDecimal consultarSaldo() {
         validarCuentaActiva();
-        return cuentaActiva;
+        return cuentaActiva.getSaldo();
+    }
+
+    @Override
+    public String consultarTitular() {
+        validarCuentaActiva();
+        return cuentaActiva.getTitular();
     }
 
     private void validarCuentaActiva() {

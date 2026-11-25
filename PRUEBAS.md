@@ -1,31 +1,26 @@
-# Registro de Pruebas Funcionales
+# Matriz de Pruebas - Laboratorio 07-B (Arquitectura Hexagonal)
 
-| Caso | Acción ejecutada | Resultado obtenido | Estado |
-| :--- | :--- | :--- | :---: |
-| **P01** | Opción `1`: Titular `Ana`, Saldo `1000` | Mensaje: *"Cuenta registrada exitosamente."* Se registra línea de creación en `movimientos.txt` con saldo `1000.00`. | Aprobado |
-| **P02** | Opción `2`: Depositar `200` | Mensaje: *"Deposito exitoso."* Nuevo saldo `1200.00`; movimiento registrado en `movimientos.txt`. | Aprobado |
-| **P03** | Opción `3`: Retirar `150` | Mensaje: *"Retiro exitoso."* Nuevo saldo `1050.00`; movimiento registrado en `movimientos.txt`. | Aprobado |
-| **P04** | Opción `3`: Retirar `2000` | Mensaje: *"Operacion rechazada: Fondos insuficientes para realizar el retiro."* Saldo intacto (`1050.00`). No escribe en archivo. | Aprobado |
-| **P05** | Opción `2`: Depositar `-10` | Mensaje: *"Operacion rechazada: El monto a depositar debe ser mayor a cero."* Saldo intacto (`1050.00`). | Aprobado |
-| **P06** | Opción `1`: Registrar cuenta `Carlos` con `500` sin reiniciar | Mensaje: *"Operacion rechazada: Ya existe una cuenta activa (Ana). No se puede reemplazar."* La cuenta de Ana se mantiene intacta. | Aprobado |
-| **P07** | Opción `5` (Salir) y volver a ejecutar `Main` | El sistema muestra advertencia inicial indicando que `movimientos.txt` solo es un historial y no restaura automáticamente la cuenta anterior. Al consultar saldo (Opción `4`), informa que no hay cuenta activa. | Aprobado |
+| ID | Caso de prueba | Entrada ejecutada | Resultado esperado | Resultado obtenido | Estado |
+| :--- | :--- | :--- | :--- | :--- | :---: |
+| **P01** | Registrar cuenta con saldo 1000 | Opción `1`, Titular: `Ana`, Saldo: `1000` | Registro correcto | Mensaje *"Cuenta registrada exitosamente."* | Aprobado |
+| **P02** | Depositar 500 | Opción `2`, Monto: `500` | Saldo 1500 | Mensaje *"Deposito exitoso."* (Saldo `1500.00`) | Aprobado |
+| **P03** | Retirar 200 | Opción `3`, Monto: `200` | Saldo 1300 | Mensaje *"Retiro exitoso."* (Saldo `1300.00`) | Aprobado |
+| **P04** | Retirar 2000 | Opción `3`, Monto: `2000` | Operación rechazada; saldo 1300 | *"Operacion rechazada: Fondos insuficientes..."* Saldo `1300.00` | Aprobado |
+| **P05** | Depositar -10 | Opción `2`, Monto: `-10` | Operación rechazada | *"Operacion rechazada: El monto a depositar debe ser mayor a cero."* | Aprobado |
+| **P06** | Probar con adaptador TXT | `ArchivoMovimientoRepository` activo | Se agrega movimiento al archivo | Se registran las líneas con fecha y hora en `movimientos.txt` | Aprobado |
+| **P07** | Probar con adaptador memoria | `MemoriaMovimientoRepository` activo | Se agrega movimiento a la lista | Se almacenan en `ArrayList` y se listan al salir | Aprobado |
+| **P08** | Cambiar TXT -> memoria | Sustituir instanciación en `Main.java` | Sin cambios en dominio ni servicio | `CuentaBancaria` y `CuentaService` permanecieron intactos | Aprobado |
 
-## Nota sobre `movimientos.txt`
-El archivo `movimientos.txt` generado en la raíz del proyecto actúa exclusivamente como un **log de auditoría (historial append-only)** de las transacciones ocurridas. No constituye un mecanismo de persistencia de estado de entidades, por lo que al finalizar la ejecución de la JVM el estado de `CuentaBancaria` en memoria se libera.
+## Evidencias de Ejecución (Laboratorio 07-B)
 
-## Evidencias de Ejecución
+### Figura 1: Caso P01 con ArchivoMovimientoRepository
+![Captura 1](evidencias/lab7b_cap01.png)
 
-### Caso P01: Registro de cuenta inicial
-![Registro P01](evidencias/p01_registro.png)
+### Figura 2: Casos P02, P03, P04, Consulta de Saldo y P05
+![Captura 2](evidencias/lab7b_cap02.png)
 
-### Casos P02, P03 y Consulta de Saldo
-![Operaciones y Saldo](evidencias/p02_p03_saldo.png)
+### Figura 3: Caso P06 — Registro en movimientos.txt
+![Captura 3](evidencias/lab7b_cap03.png)
 
-### Casos P04, P05 y P06 (Validaciones de negocio)
-![Validaciones](evidencias/p04_p05_p06_validaciones.png)
-
-### Caso P07: Reinicio del sistema y advertencia de memoria
-![Reinicio P07](evidencias/p07_reinicio.png)
-
-### Archivo de historial `movimientos.txt`
-![Archivo movimientos.txt](evidencias/movimientos_txt.png)
+### Figura 4: Casos P07 y P08 — Cambio a MemoriaMovimientoRepository (ArrayList)
+![Captura 4](evidencias/lab7b_cap04.png)

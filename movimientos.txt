@@ -1,3 +1,6 @@
 2026-11-24 12:40:07 | Cuenta creada | Titular: Ana | Saldo inicial: S/ 1000.00
 2026-11-24 12:40:59 | Titular: Ana | Deposito: S/ 200 | Saldo actual: S/ 1200.00
 2026-11-24 12:41:28 | Titular: Ana | Retiro: S/ 150 | Saldo actual: S/ 1050.00
+2026-11-25 08:07:17 | Cuenta creada | Titular: Ana | Saldo inicial: S/ 1000.00
+2026-11-25 08:10:44 | Titular: Ana | Deposito: S/ 500 | Saldo actual: S/ 1500.00
+2026-11-25 08:11:21 | Titular: Ana | Retiro: S/ 200 | Saldo actual: S/ 1300.00
